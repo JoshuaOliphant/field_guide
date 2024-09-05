@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Digital Garden - Home{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">Welcome to Your Digital Garden</h1>
+
+    <p class="mb-6">Explore your interconnected thoughts and ideas. Start by browsing recent notes or create a new one.</p>
+
+    <h2 class="text-2xl font-semibold mb-4">Recent Notes</h2>
+    <ul class="space-y-2">
+    {% for note in recent_notes %}
+        <li class="flex items-center">
+            <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+            </svg>
+            <a hx-get="/notes/content/{{ note.slug }}"
+               hx-target="#note-content"
+               hx-push-url="/notes/{{ note.slug }}"
+               class="text-green-600 hover:text-green-800 hover:underline transition duration-300">
+                {{ note.title }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <div id="note-content" class="mt-8"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    const previewLinks = document.querySelectorAll('.preview-link');
+    const previewCache = {};
+
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    function showPreview(link, previewBox) {
+        previewBox.classList.remove('hidden');
+        const noteId = link.getAttribute('data-note-id');
+        
+        if (previewCache[noteId]) {
+            updatePreviewContent(previewBox, previewCache[noteId]);
+        } else {
+            previewBox.innerHTML = '<p class="text-sm text-gray-600">Loading preview...</p>';
+            fetch(`/notes/api/note-preview/${noteId}`)
+                .then(response => response.json())
+                .then(data => {
+                    previewCache[noteId] = data;
+                    updatePreviewContent(previewBox, data);
+                });
+        }
+    }
+
+    function updatePreviewContent(previewBox, data) {
+        previewBox.innerHTML = `
+            <h3 class="text-lg font-semibold mb-2">${data.title}</h3>
+            <p class="text-sm text-gray-600">${data.preview}</p>
+        `;
+    }
+
+    const debouncedShowPreview = debounce(showPreview, 100);
+
+    previewLinks.forEach(link => {
+        const previewBox = link.nextElementSibling;
+        let showTimeout;
+        
+        link.addEventListener('mouseenter', () => {
+            showTimeout = setTimeout(() => {
+                debouncedShowPreview(link, previewBox);
+            }, 200);
+        });
+        
+        link.addEventListener('mouseleave', () => {
+            clearTimeout(showTimeout);
+            previewBox.classList.add('hidden');
+        });
+    });
+});
+</script>
+{% endblock %}

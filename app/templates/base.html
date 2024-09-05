@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Digital Garden{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.9/dist/typography.min.css" rel="stylesheet">
+        <style>
+            /* Your existing custom styles */
+            .prose h1 { @apply text-3xl font-bold mb-4; }
+            .prose h2 { @apply text-2xl font-semibold mb-3 mt-6; }
+            .prose h3 { @apply text-xl font-semibold mb-2 mt-4; }
+            .prose p { @apply mb-4; }
+            .prose ul, .prose ol { @apply mb-4 ml-8; }
+            .prose li { @apply mb-2; }
+            .prose a { @apply text-green-600 hover:underline; }
+
+            /* Additional custom styles for the prose class */
+            .prose {
+                max-width: 65ch;
+                color: #374151;
+            }
+            .prose-green {
+                --tw-prose-links: #059669;
+                --tw-prose-invert-links: #34d399;
+            }
+        </style>
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    </head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="bg-green-600 text-white p-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold">Digital Garden</a>
+            <ul class="flex space-x-4">
+                <li><a href="/" class="hover:underline">Home</a></li>
+                <li><a href="/notes" class="hover:underline">Notes</a></li>
+                <li><a href="/about" class="hover:underline">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="content" class="container mx-auto flex-grow p-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-green-600 text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+            &copy; 2024 Digital Garden. All rights reserved.
+        </div>
+    </footer>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

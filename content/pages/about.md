@@ -1,32 +1,41 @@
 ---
-title: About This Digital Garden
+title: About My Field Guide
 date: 2023-07-13
 ---
 
-# About This Digital Garden
+# About My Field Guide
 
-Welcome to my digital garden! This space is a living, breathing collection of my thoughts, ideas, and learnings.
+Welcome to my personal field guide! This digital space is where I document my adventures in nature, share my observations, and reflect on my outdoor experiences.
 
-## What is a Digital Garden?
+## Why a Digital Field Guide?
 
-A digital garden is an online space for growing and nurturing ideas. Unlike traditional blogs, which are often presented in reverse chronological order, a digital garden is organized more like a wiki – with interconnected pages that evolve over time.
+As an avid nature enthusiast and amateur naturalist, I created this digital field guide to:
 
-## Why a Digital Garden?
+1. Record and organize my observations of local flora and fauna
+2. Share my learning journey in wildlife identification and nature appreciation
+3. Reflect on my outdoor experiences and how they shape my understanding of the natural world
 
-I chose to create a digital garden because:
+## What You'll Find Here
 
-1. It allows for non-linear exploration of ideas
-2. It encourages continuous learning and iteration
-3. It reflects the natural way our thoughts connect and evolve
+- Detailed notes on wildlife sightings and plant identifications
+- Hiking journals documenting my trails and adventures
+- Tips and techniques for nature observation
+- Personal reflections on my connection with nature
 
-## How to Navigate
+## My Background
 
-- Use the search function to find specific topics
-- Click on linked notes to explore related ideas
-- Check out the [Note Graph](/graph) to see how ideas connect
+I'm [Your Name], a [Your Profession] by day and a passionate naturalist in my free time. My interest in nature began [brief story about how you got interested in nature].
 
-## A Work in Progress
+## How to Use This Guide
 
-This garden is always growing and changing. You might find some notes that are fully formed, while others are just seedlings of ideas. Feel free to explore, and don't hesitate to reach out if you have any questions or insights to share!
+- Use the search function to find notes on specific species or locations
+- Click on linked notes to explore related observations
+- Check out the [Trail Map](/trail-map) to see where my adventures have taken me
 
-Happy gardening!
+## A Growing Guide
+
+Like nature itself, this field guide is constantly evolving. My knowledge grows with each outdoor adventure, and I update these notes regularly with new observations and insights.
+
+Feel free to explore, and don't hesitate to reach out if you have any questions or want to share your own nature experiences!
+
+Happy exploring!

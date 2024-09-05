@@ -49,31 +49,16 @@ def process_markdown_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
-    # Parse metadata and content
     metadata, markdown_content = parse_markdown_metadata(content)
 
-    # Convert markdown to HTML
-    html_content = markdown_to_html(markdown_content)
-
-    title = metadata.get('title',
-                         os.path.splitext(os.path.basename(file_path))[0])
+    title = metadata.get('title', os.path.splitext(os.path.basename(file_path))[0])
 
     return {
-        'title':
-        title,
-        'slug':
-        slugify(title),
-        'date':
-        metadata.get(
-            'date',
-            datetime.fromtimestamp(
-                os.path.getmtime(file_path)).strftime('%Y-%m-%d')),
-        'tags': [
-            tag.strip() for tag in metadata.get('tags', '').split(',')
-            if tag.strip()
-        ],
-        'content':
-        html_content
+        'title': title,
+        'slug': slugify(title),
+        'date': metadata.get('date', datetime.fromtimestamp(os.path.getmtime(file_path)).strftime('%Y-%m-%d')),
+        'tags': [tag.strip() for tag in metadata.get('tags', '').split(',') if tag.strip()],
+        'content': markdown_content.replace('\n', '\\n').replace('"', '\\"')  # Escape newlines and quotes
     }
 
 

@@ -1,17 +1,30 @@
-{% extends "base.html" %}
-
-{% block title %}Digital Garden - Home{% endblock %}
-
-{% block content %}
-<div class="max-w-4xl mx-auto prose">
-    <h1 class="text-3xl font-bold mb-6">{{ page.title }}</h1>
-    {{ page.content | safe }}
-    
-    <div class="mt-8">
-        <h2 class="text-2xl font-semibold mb-4">Recent Notes</h2>
-        <div id="notes-container" class="grid gap-4 md:grid-cols-2" hx-trigger="load" hx-get="/api/notes" hx-target="#notes-container" hx-swap="innerHTML">
-            <!-- Notes will be loaded here -->
+{% extends "base.html" %} {% block title %}Notes - Field Guide{% endblock %} {%
+block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6 font-handwritten text-green-700">
+        Field Notes
+    </h1>
+    <div class="grid gap-4 md:grid-cols-2">
+        {% for note in notes %}
+        <div class="bg-white p-4 rounded shadow-md border border-yellow-200">
+            <h2 class="text-xl font-semibold mb-2 font-handwritten">
+                <a
+                    href="/notes/{{ note.slug }}"
+                    class="text-green-700 hover:underline"
+                    >{{ note.title }}</a
+                >
+            </h2>
+            <p class="text-yellow-700 mb-2">{{ note.date }}</p>
+            <div class="mt-2">
+                {% for tag in note.tags %}
+                <span
+                    class="inline-block bg-yellow-100 text-yellow-800 text-sm px-2 py-1 rounded mr-2"
+                    >{{ tag }}</span
+                >
+                {% endfor %}
+            </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

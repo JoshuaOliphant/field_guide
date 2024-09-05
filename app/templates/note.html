@@ -1,13 +1,60 @@
-{% extends "base.html" %}
-
-{% block title %}{{ note.title }} - Digital Garden{% endblock %}
-
-{% block content %}
-<article class="max-w-3xl mx-auto prose prose-green">
-    <h1>{{ note.title }}</h1>
-    <p class="text-gray-600">{{ note.date }}</p>
-    <div>
-        {{ note.content | safe }}
-    </div>
+{% extends "base.html" %} {% block title %}{{ note.title }} - Field Guide{%
+endblock %} {% block head %}
+<style>
+    .prose h1 {
+        font-size: 2.25rem;
+        font-weight: bold;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .prose h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+    .prose h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+    .prose ul,
+    .prose ol {
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .prose li {
+        margin-bottom: 0.5rem;
+    }
+    .prose p {
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %} {% block content %}
+<article class="max-w-3xl mx-auto prose prose-yellow">
+    <h1 class="text-3xl font-bold font-handwritten text-green-700">
+        {{ note.title }}
+    </h1>
+    <p class="text-yellow-700">{{ note.date }}</p>
+    <div id="markdown-content" class="mt-4">{{ note.content }}</div>
 </article>
+{% endblock %} {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
+/>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const content = document
+            .getElementById("markdown-content")
+            .textContent.replace(/\\n/g, "\n") // Replace escaped newlines with actual newlines
+            .replace(/\\"/g, '"'); // Replace escaped quotes with actual quotes
+        const htmlContent = marked.parse(content);
+        document.getElementById("markdown-content").innerHTML = htmlContent;
+        Prism.highlightAll();
+    });
+</script>
 {% endblock %}
